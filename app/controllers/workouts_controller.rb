@@ -1,6 +1,6 @@
 class WorkoutsController < ProtectedController
   before_action :set_workout, only: [:show, :update, :destroy]
-
+  before_action :validate_user
   # GET /workouts
   def index
     @workouts = Workout.all
@@ -15,7 +15,7 @@ class WorkoutsController < ProtectedController
 
   # POST /workouts
   def create
-    @workout = Workout.new(workout_params)
+    @workout = current_user.workouts.build(workout_params)
     # @workout.user_id = @current_user.id
 
     if @workout.save
@@ -43,6 +43,10 @@ class WorkoutsController < ProtectedController
     # Use callbacks to share common setup or constraints between actions.
     def set_workout
       @workout = Workout.find(params[:id])
+    end
+
+    def validate_user
+      set_current_user
     end
 
     # Only allow a trusted parameter "white list" through.
