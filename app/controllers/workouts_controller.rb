@@ -3,7 +3,12 @@ class WorkoutsController < ProtectedController
   before_action :validate_user
   # GET /workouts
   def index
-    @workouts = Workout.all
+    # @workouts = Workout.all
+    if params[:user_workouts] == "true"
+      @workouts = current_user.workouts
+    else
+      @workouts = Workout.all
+    end
 
     render json: @workouts
   end
