@@ -3,6 +3,7 @@ class WorkoutsController < ProtectedController
   before_action :validate_user
   # GET /workouts
   def index
+    # @workouts = Workout.all
     @workouts = current_user.workouts.all
 
     render json: @workouts
@@ -41,17 +42,18 @@ class WorkoutsController < ProtectedController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_workout
-      @workout = current_user.workouts.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_workout
+    # @workout = Workout.find(params[:id])
+    @workout = current_user.workouts.find(params[:id])
+  end
 
-    def validate_user
-      set_current_user
-    end
+  def validate_user
+    set_current_user
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def workout_params
-      params.require(:workout).permit(:name, :reps, :sets)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def workout_params
+    params.require(:workout).permit(:name, :reps, :sets)
+  end
 end
