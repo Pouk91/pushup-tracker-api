@@ -55,4 +55,4 @@ class ExamplesController < OpenReadController
   end
 
   private :set_example, :example_params
-end
+end1
